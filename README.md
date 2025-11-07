@@ -4,7 +4,7 @@
 
 ## 🚀 주요 기능
 
-* [cite_start]**Fitts's Law 실험 설계**: `ExperimentManager` 인스펙터 창에서 (A)진폭, (W)타겟 폭, 라운드 반복 횟수를 쉽게 설정할 수 있습니다. [cite: 33, 34]
+* **Fitts's Law 실험 설계**: `ExperimentManager` 인스펙터 창에서 (A)진폭, (W)타겟 폭, 라운드 반복 횟수를 쉽게 설정할 수 있습니다.
 * **동적 타겟 레이아웃**: 지정된 A, W 값에 따라 원형 Fitts's Law 타겟 레이아웃을 자동으로 생성합니다 (`TargetLayout.cs`).
 * **VR 컨트롤러 상호작용**: VR 컨트롤러를 사용한 커서 기반의 상호작용(`CursorInteraction.cs`)을 지원하며, 트리거 버튼으로 타겟을 선택합니다.
 * **포괄적인 데이터 로깅**: 각 트라이얼(Trial)마다 MT(이동 시간), Error Rate, Throughput(TP), 헤드 움직임(Head Movement), 터치 좌표 등 상세한 데이터를 수집합니다 (`DataLogger.cs`).
@@ -20,7 +20,7 @@
 
 * **`ExperimentManager.cs`**:
     * 실험의 "두뇌" 역할을 합니다. 라운드, 블록(A/W 조합), 트라이얼 순서를 관리합니다.
-    * [cite_start]인스펙터에서 `awList` (진폭, 폭)를 설정받아 실험을 구성합니다. [cite: 33]
+    * 인스펙터에서 `awList` (진폭, 폭)를 설정받아 실험을 구성합니다.
     * 트라이얼 완료 시(`CompleteCurrentTrial`) `DataLogger`에 데이터를 추가합니다.
     * 실험 종료 시(`EndExperiment`) `DataLogger.SaveToCSV()`를 호출해 파일을 저장하고, 이어서 `DriveCsvUploader`를 실행해 업로드를 시도합니다.
 * **`TargetLayout.cs`**:
@@ -44,7 +44,7 @@
     * `SaveToCSV` 메서드가 호출되면(실험 종료 시), 누적된 모든 데이터를 `.csv` 파일로 생성하여 로컬 경로 및 Downloads 폴더에 저장/복사합니다.
 * **`DriveCsvUploader.cs`**:
     * `DataLogger`가 생성한 로컬 `.csv` 파일 경로를 받아, Google Apps Script Web App URL로 POST 요청을 보내 파일을 업로드합니다.
-    * [cite_start]`webAppUrl`, `secretKey`, `folderId`를 인스펙터에서 설정해야 합니다. [cite: 20]
+    * `webAppUrl`, `secretKey`, `folderId`를 인스펙터에서 설정해야 합니다.
 * **`AndroidDownloadsExporter.cs`**:
     * Android 10 (API 29) 이상에서 Scoped Storage 정책을 준수하며 `Downloads` 폴더에 파일을 저장할 수 있도록 `MediaStore` API를 사용하는 유틸리티 스크립트입니다.
 * **`GoogleSpreadsheetsManager.cs`**:
@@ -54,11 +54,11 @@
 ### 4. 프리팹 및 씬 (Prefabs & Scene)
 
 * **`TargetPrefabSphere.prefab`**:
-    * [cite_start]`Target.cs` 스크립트가 부착되어 있습니다. [cite: 4]
-    * [cite_start]`SphereCollider` (Is Trigger=true)와 `Rigidbody` (Is Kinematic=true)를 포함하여 `CursorInteraction`이 감지할 수 있도록 설정되어 있습니다. [cite: 4, 5]
+    * `Target.cs` 스크립트가 부착되어 있습니다.
+    * `SphereCollider` (Is Trigger=true)와 `Rigidbody` (Is Kinematic=true)를 포함하여 `CursorInteraction`이 감지할 수 있도록 설정되어 있습니다.
 * **`StartButton.prefab`**:
-    * [cite_start]`StartButton.cs` 스크립트가 부착되어 있습니다. [cite: 69]
-    * [cite_start]`BoxCollider` (Is Trigger=true)를 포함합니다. [cite: 69]
+    * `StartButton.cs` 스크립트가 부착되어 있습니다.
+    * `BoxCollider` (Is Trigger=true)를 포함합니다.
 * **`SampleScene.unity`**:
     * 프로젝트의 모든 구성 요소가 배치된 메인 씬입니다.
     * `OVRCameraRig` (Passthrough 활성화됨), `ExperimentManager`, `TargetLayout`, `Cursor`, `csvmanager` (`DriveCsvUploader` 컴포넌트 포함) 등이 올바르게 연결되어 있습니다.
@@ -75,19 +75,19 @@
 `SampleScene.unity` 파일을 참고하여 씬을 구성합니다.
 
 1.  **`ExperimentManager`**:
-    * [cite_start]`Target Layout`: 씬의 `TargetLayout` 오브젝트를 연결합니다. [cite: 33]
-    * [cite_start]`Start Button Prefab`: `StartButton.prefab` 파일을 연결합니다. [cite: 33, 66]
-    * [cite_start]`Main Camera`: `OVRCameraRig/TrackingSpace/CenterEyeAnchor`의 Camera를 연결합니다. [cite: 33, 59]
-    * [cite_start]`Rounds` 및 `Aw List` (진폭, 폭)를 인스펙터에서 원하는 값으로 설정합니다. [cite: 33, 34]
+    * `Target Layout`: 씬의 `TargetLayout` 오브젝트를 연결합니다.
+    * `Start Button Prefab`: `StartButton.prefab` 파일을 연결합니다.
+    * `Main Camera`: `OVRCameraRig/TrackingSpace/CenterEyeAnchor`의 Camera를 연결합니다.
+    * `Rounds` 및 `Aw List` (진폭, 폭)를 인스펙터에서 원하는 값으로 설정합니다.
 2.  **`TargetLayout`**:
-    * [cite_start]`Target Prefab`: `TargetPrefabSphere.prefab` 파일을 연결합니다. [cite: 22, 1]
+    * `Target Prefab`: `TargetPrefabSphere.prefab` 파일을 연결합니다.
 3.  **`Cursor`**:
-    * [cite_start]`CursorInteraction.cs` 컴포넌트를 부착합니다. [cite: 13]
-    * [cite_start]`Controller Transform`: `OVRCameraRig/TrackingSpace/RightHandAnchor` (또는 `LeftHandAnchor`)를 연결합니다. [cite: 49, 59]
-    * [cite_start]`Rigidbody` (IsKinematic=true, UseGravity=false)와 `SphereCollider` (Is Trigger=true)를 부착합니다. [cite: 45, 48]
+    * `CursorInteraction.cs` 컴포넌트를 부착합니다.
+    * `Controller Transform`: `OVRCameraRig/TrackingSpace/RightHandAnchor` (또는 `LeftHandAnchor`)를 연결합니다.
+    * `Rigidbody` (IsKinematic=true, UseGravity=false)와 `SphereCollider` (Is Trigger=true)를 부착합니다.
 4.  **`csvmanager`**:
-    * [cite_start]`DriveCsvUploader.cs` 컴포넌트를 부착합니다. [cite: 20]
-    * [cite_start]인스펙터에서 **`Web App Url`**, **`Secret Key`**, **`Folder Id`**를 1-2 단계에서 만든 Google Apps Script 정보로 채워야 합니다. [cite: 20]
+    * `DriveCsvUploader.cs` 컴포넌트를 부착합니다.
+    * 인스펙터에서 **`Web App Url`**, **`Secret Key`**, **`Folder Id`**를 1-2 단계에서 만든 Google Apps Script 정보로 채워야 합니다.
 
 ### 3. (대안) Google Sheets 로깅 설정
 
